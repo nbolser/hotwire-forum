@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root 'main#index'
 
-  resources :discussions, only: [:index, :new, :create]
+  resources :discussions, only: [:index, :new, :create, :edit, :update]
 
   get 'main/index'
 end
