@@ -2,6 +2,7 @@
   <h2><%= discussion.name %></h2>
   <p>Pinned: <%= discussion.pinned %> | Closed: <%= discussion.pinned %> </p>
   <div>
-    <%= link_to "Edit", edit_discussion_path(discussion) %>
+    <%= link_to "Edit", edit_discussion_path(discussion) %> |
+    <%= link_to "Delete" , discussion, method: :delete, data: { confirm: "Are you sure?" } %>
   </div>
 </div>
