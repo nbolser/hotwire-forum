@@ -9,23 +9,22 @@ RUN apt-get install yarn -y
 
 # Gem caching
 COPY Gemfile /app/Gemfile
+COPY Gemfile.lock /app/Gemfile.lock
 WORKDIR /app
 RUN gem install bundler:2.0.2
 RUN bundle install
 
+# Copy the application
 COPY . /app
 
+# Install Yarn
 RUN yarn install
 
-# Install Yarn
-
-
-# COPY Gemfile.lock /app/Gemfile.lock
-
-
+# Copy the entrypoint
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
+# Start the application
 CMD ["rails", "server", "-b", "0.0.0.0"]
