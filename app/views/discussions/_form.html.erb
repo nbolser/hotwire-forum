@@ -29,4 +29,11 @@
     <%= form.submit class: 'btn btn-primary' %>
   </div>
 
+  <% if discussion.new_record? %>
+    <%= form.fields_for :posts do |p| %>
+    <div class="mb-3">
+      <%= p.rich_text_area :body, placeholder: "Start your discussion..." %>
+    </div>
+    <% end %>
+  <% end %>
 <% end %>
