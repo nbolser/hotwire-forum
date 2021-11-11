@@ -3,10 +3,11 @@ class DiscussionsController < ApplicationController
   before_action :set_discussion, only: [:show, :edit, :update, :destroy]
 
   def index
-    @discussions = Discussion.all
+    @discussions = Discussion.all.order(updated_at: :desc)
   end
 
   def show
+    @posts = @discussion.posts.all.order(created_at: :asc)
     @new_post = @discussion.posts.new
   end
 

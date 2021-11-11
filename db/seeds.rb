@@ -1,5 +1,5 @@
 # Create User
-user = User.create(email: 'test@aol.com', username: 'test', password: 'password', password_confirmation: 'password')
+user = User.create(email: 'test@aol.com', username: 'Bart', password: 'password', password_confirmation: 'password')
 Current.user = user
 
 # Create Discussion
