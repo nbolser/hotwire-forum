@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   devise_for :users
   root 'main#index'
 
-  resources :discussions
+  resources :discussions do
+    resources :posts, only: [:create], module: [:discussions]
+  end
 
   get 'main/index'
 end
