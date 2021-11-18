@@ -20,7 +20,7 @@ class DiscussionsController < ApplicationController
     @discussion = Discussion.new(discussion_params)
 
     respond_to do |format|
-      if @discussion.save
+      if @discussion.sav
         format.html { redirect_to @discussion, notice: "Discussion created" }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class DiscussionsController < ApplicationController
   private
 
   def discussion_params
-    params.require(:discussion).permit(:name, :pinned, :closed, posts_attributes: :body)
+    params.require(:discussion).permit(:name, :pinned, :closed, posts_attributes: :body, :category_id)
   end
 
   def set_discussion

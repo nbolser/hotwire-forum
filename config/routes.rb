@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :categories
   get 'discussions/index'
   devise_for :users
   root 'main#index'
