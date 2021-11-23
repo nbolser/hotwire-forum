@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2021_11_12_171737) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
-    t.integer "discussions_counter"
+    t.integer "discussions_count"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2021_11_12_171737) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "post_count", default: 0
-    t.bigint "caegory_id"
+    t.bigint "category_id"
     t.index ["user_id"], name: "index_discussions_on_user_id"
   end
 

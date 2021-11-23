@@ -3,7 +3,10 @@ user = User.create(email: 'test@aol.com', username: 'Bart', password: 'password'
 Current.user = user
 
 # Create Discussion
-discussion = Discussion.create(name: 'Sample Discussion', user: Current.user)
+category = Category.create(name: 'General')
+
+# Create Discussion
+discussion = Discussion.create(name: 'Sample Discussion', user: Current.user, category: Category.first)
 
 # Create Post
 Post.create!(discussion: discussion, body: 'Hello World!')
