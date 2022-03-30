@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.1.1'
 
 gem 'rails', '~> 6.1.0'
 gem 'pg', '~> 1.1'
@@ -15,7 +15,7 @@ gem 'hotwire-rails'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'faker'
+  gem 'faker', '>= 2.20.0'
 end
 
 group :development do
