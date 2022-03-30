@@ -3,6 +3,8 @@ class Discussion < ApplicationRecord
   belongs_to :category, counter_cache: true, touch: true
   has_many :posts, dependent: :destroy
 
+  scope :pinned_discussions, -> { order(pinned: :desc, created_at: :desc) }
+
   validates :name, presence: true
 
   accepts_nested_attributes_for :posts
