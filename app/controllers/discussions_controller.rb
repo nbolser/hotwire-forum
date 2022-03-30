@@ -1,6 +1,6 @@
 class DiscussionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_discussion, only: [:show, :edit, :update, :destroy]
+  before_action :set_discussion, only: %i[show edit update destroy]
 
   def index
     @discussions = Discussion.all.order(updated_at: :desc)
@@ -21,23 +21,36 @@ class DiscussionsController < ApplicationController
 
     respond_to do |format|
       if @discussion.save
-        format.html { redirect_to @discussion, notice: "Discussion created" }
+        format.html { redirect_to @discussion, notice: 'Discussion created' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
     end
   end
 
-  def edit
-
-  end
+  def edit; end
 
   def update
     respond_to do |format|
       if @discussion.update(discussion_params)
-        @discussion.broadcast_replace(partial: "discussions/header", locals: { discussion: @discussion })
+        @discussion.broadcast_replace(partial: 'discussions/header', locals: { discussion: @discussion })
 
-        format.html { redirect_to @discussion, notice: "Discussion updated" }
+        if @discussion.saved_change_to_category_id?
+          old_category_id, new_category_id = @discussion.saved_change_to_category_id
+
+          old_category = Category.find(old_category_id)
+          new_category = Category.find(new_category_id)
+
+          # remove it from the old category list and insery to new list
+          @discussion.broadcast_remove_to(old_category)
+          @discussion.broadcast_prepend_to(new_category)
+
+          # update categories by replacing. this updates the couter in the side bar
+          old_category.reload.broadcast_replace_to('categories')
+          new_category.reload.broadcast_replace_to('categories')
+        end
+
+        format.html { redirect_to @discussion, notice: 'Discussion updated' }
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -47,7 +60,7 @@ class DiscussionsController < ApplicationController
   def destroy
     @discussion.destroy!
 
-    redirect_to discussions_path, notice: "Discussion deleted"
+    redirect_to discussions_path, notice: 'Discussion deleted'
   end
 
   private
