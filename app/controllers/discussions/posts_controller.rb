@@ -2,19 +2,16 @@ module Discussions
   class PostsController < ApplicationController
     before_action :authenticate_user!
     before_action :set_discussion
-    before_action :set_post, only: [:show, :edit, :update, :destroy]
+    before_action :set_post, only: %i[show edit update destroy]
 
-    def new
-    end
+    def new; end
 
-    def edit
-
-    end
+    def edit; end
 
     def update
       respond_to do |format|
         if @post.update(post_params)
-        format.html { redirect_to @post.discussion, notice: 'Post updated' }
+          format.html { redirect_to @post.discussion, notice: 'Post updated' }
         else
           format.turbo_stream
           format.html { render :edit, status: :unprocessable_entity }
@@ -36,10 +33,10 @@ module Discussions
     end
 
     def destroy
-    @post.destroy
+      @post.destroy
 
       respond_to do |format|
-        format.turbo_stream { } # let the callback delete the post: https://github.com/hotwired/turbo-rails/issues/50
+        format.turbo_stream {} # let the callback delete the post: https://github.com/hotwired/turbo-rails/issues/50
         format.html { redirect_to @post.discussion, notice: 'Post deleted' }
       end
     end
